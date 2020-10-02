@@ -1,7 +1,7 @@
 # trainingTime
  © programm for TRITPO BSUIR, 850503, ALEX BASKO
 
-1.	Введение
+***1.Введение***
 
 ***Название проекта «trainingTime»***
 
