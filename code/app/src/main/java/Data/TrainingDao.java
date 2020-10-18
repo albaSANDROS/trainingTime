@@ -18,6 +18,9 @@ public interface TrainingDao {
     @Query("SELECT * FROM training WHERE id = :id")
     Training getById(long id);
 
+    @Query("SELECT * FROM training WHERE name = :name")
+    Training getByName(String name);
+
     @Insert
     void insert(Training training);
 

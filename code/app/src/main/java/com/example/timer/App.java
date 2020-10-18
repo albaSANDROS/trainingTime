@@ -15,7 +15,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        database = Room.databaseBuilder(this, AppDatabase.class, "database1")
+        database = Room.databaseBuilder(this, AppDatabase.class, "database2")
                 .allowMainThreadQueries()
                 .build();
     }
