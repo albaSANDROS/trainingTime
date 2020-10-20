@@ -1,7 +1,8 @@
 # trainingTime
  © programm for TRITPO BSUIR, 850503, ALEX BASKO
 
-![Image alt]https://github.com/albaSANDROS/trainingTime/blob/master/logos/main(icon).jpg
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/main(icon).jpg?raw=true)
+
 ***1.Введение***
 
 ***Название проекта «trainingTime»***
