@@ -8,11 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import Data.AppDatabase;
-import Models.Training;
+import com.example.timer.Data.AppDatabase;
+import com.example.timer.Models.Training;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.buttonAddTraining).setOnClickListener(i -> {
             Intent intent = new Intent(this, CrateActivity.class);
+            intent.putExtra("trainingId", new int[]{0,0});
             startActivity(intent);
         });
     }

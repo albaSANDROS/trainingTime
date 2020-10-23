@@ -2,7 +2,6 @@ package com.example.timer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import Data.AppDatabase;
-import Models.Training;
+import com.example.timer.Data.AppDatabase;
+import com.example.timer.Models.Training;
 
 public class TrainingAdapter extends ArrayAdapter<Training> {
     private LayoutInflater inflater;
@@ -55,8 +53,8 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
 
         viewHolder.editButton.setOnClickListener(i -> {
             Context context = getContext();
-            Intent intent = new Intent(context, EditActivity.class);
-            intent.putExtra("trainingId", training.Id);
+            Intent intent = new Intent(context, CrateActivity.class);
+            intent.putExtra("trainingId", new int[]{training.Id, 1});
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

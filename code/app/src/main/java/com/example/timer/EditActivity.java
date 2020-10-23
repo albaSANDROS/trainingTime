@@ -7,8 +7,8 @@ import android.os.Bundle;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import Data.AppDatabase;
-import Models.Training;
+import com.example.timer.Data.AppDatabase;
+import com.example.timer.Models.Training;
 
 public class EditActivity extends AppCompatActivity {
 
