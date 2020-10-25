@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
         Training training = trainingList.get(position);
         viewHolder.nameView.setText(training.Name);
         viewHolder.idView.setText((Integer.toString(training.Id)));
-
+        viewHolder.layout.setBackgroundColor(training.Color);
 
         viewHolder.removeButton.setOnClickListener(i -> {
                 db.trainingDao().delete(trainingList.get(position));
@@ -65,11 +66,13 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
     private class ViewHolder {
         Button removeButton, editButton;
         TextView nameView, idView;
+        LinearLayout layout;
         ViewHolder(View view){
             removeButton = view.findViewById(R.id.removeButton);
             editButton = view.findViewById(R.id.editButton);
             nameView = view.findViewById(R.id.nameView);
             idView = view.findViewById(R.id.idView);
+            layout = view.findViewById(R.id.layout);
         }
     }
 }

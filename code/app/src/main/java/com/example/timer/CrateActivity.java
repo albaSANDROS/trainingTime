@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.divyanshu.colorseekbar.ColorSeekBar;
 import com.example.timer.ViewModel.CreateViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -42,6 +43,8 @@ public class CrateActivity extends AppCompatActivity {
     EditText inputSet;
     EditText inputCalm;
 
+    ColorSeekBar bar;
+
     Training training;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,6 @@ public class CrateActivity extends AppCompatActivity {
         viewModel.getCycles().observe(this, val -> inputCycle.setText(val.toString()));
         viewModel.getSets().observe(this, val -> inputSet.setText(val.toString()));
         viewModel.getCalm().observe(this, val -> inputCalm.setText(val.toString()));
-
         btnPrepPlus.setOnClickListener(i -> viewModel.setIncrementPreparationTime());
         btnPrepMinus.setOnClickListener(i -> viewModel.setDecrementPreparationTime());
 
@@ -88,13 +90,19 @@ public class CrateActivity extends AppCompatActivity {
 
         inputName.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) { 
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 viewModel.setName(inputName.getText().toString());
                 return true;
             }
             return false;
             }
         });
+
+        findViewById(R.id.btnCancel).setOnClickListener(i -> {
+            Intent backIntent = new Intent(this, MainActivity.class);
+            startActivity(backIntent);
+        });
+
         findViewById(R.id.submit).setOnClickListener(i -> {
             if (id[1] != 1) {
                 Training training = new Training();
@@ -105,7 +113,7 @@ public class CrateActivity extends AppCompatActivity {
                 training.Cycles = Integer.parseInt(inputCycle.getText().toString());
                 training.Sets = Integer.parseInt(inputSet.getText().toString());
                 training.Calm = Integer.parseInt(inputCalm.getText().toString());
-                training.Color = 1;
+                training.Color = bar.getColor();
                 db.trainingDao().insert(training);
             }
             else {
@@ -116,7 +124,7 @@ public class CrateActivity extends AppCompatActivity {
                 training.Cycles = Integer.parseInt(inputCycle.getText().toString());
                 training.Sets = Integer.parseInt(inputSet.getText().toString());
                 training.Calm = Integer.parseInt(inputCalm.getText().toString());
-                training.Color = 1;
+                training.Color = bar.getColor();
                 db.trainingDao().update(training);
             }
             Intent backIntent = new Intent(this, MainActivity.class);
@@ -155,5 +163,7 @@ public class CrateActivity extends AppCompatActivity {
         inputCycle = findViewById(R.id.inputCycle);
         inputSet = findViewById(R.id.inputSet);
         inputCalm = findViewById(R.id.inputCalm);
+
+        bar = findViewById(R.id.color_seek_bar);
     }
 }

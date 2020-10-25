@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CrateActivity">
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,272 +19,314 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/app_name" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="-2dp">
 
-
-        <TextView
-            android:id="@+id/textViewTraining"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Тренировка"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputName"
+            <TextView
+                android:id="@+id/textViewTraining"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Название" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="center_horizontal"
+                android:text="Тренировка"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <TextView
-            android:id="@+id/textViewPrep"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Подготовка"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Название" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewPrep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Подготовка"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPrepPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputPrep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnPrepMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewWork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Работа"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnWorkPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputWork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnWorkMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewRest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Отдых"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnRestPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputRest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnRestMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textCycleRest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Циклы"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCyclePlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnCycleMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textSetRest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Сеты"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSetPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputSet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnSetMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textCalmRest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Успокоиться"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCalmPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/inputCalm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnCalmMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Цвет"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+
+
+            <com.divyanshu.colorseekbar.ColorSeekBar
+                android:id="@+id/color_seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp" />
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
             <Button
-                android:id="@+id/btnPrepPlus"
+                android:id="@+id/btnCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/inputPrep"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
+                android:layout_marginLeft="70dp"
+                android:text="Отмена" />
 
             <Button
-                android:id="@+id/btnPrepMinus"
+                android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
+                android:text="Сохранить"
+                android:layout_marginLeft="60dp"
+                tools:ignore="MissingConstraints" />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textViewWork"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Работа"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:gravity="center_horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnWorkPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/inputWork"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-
-            <Button
-                android:id="@+id/btnWorkMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="100dp" />
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/textViewRest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Отдых"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:gravity="center_horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnRestPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
 
-            <EditText
-                android:id="@+id/inputRest"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-
-            <Button
-                android:id="@+id/btnRestMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textCycleRest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Циклы"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:gravity="center_horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnCyclePlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/inputCycle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-
-            <Button
-                android:id="@+id/btnCycleMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
-        </LinearLayout>
-
-        <TextView
-        android:id="@+id/textSetRest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Сеты"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:gravity="center_horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSetPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/inputSet"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-
-            <Button
-                android:id="@+id/btnSetMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textCalmRest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Успокоиться"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:gravity="center_horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnCalmPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/inputCalm"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:focusable="false"
-                android:textAlignment="center"
-                android:gravity="center_horizontal" />
-
-            <Button
-                android:id="@+id/btnCalmMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Сохранить"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ public class CreateViewModel extends ViewModel {
     private MutableLiveData<Integer> Cycles = new MutableLiveData<>(2);
     private MutableLiveData<Integer> Sets = new MutableLiveData<>(1);
 
+
     public MutableLiveData<String> getName() {
         return Name;
     }
