@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0078D4"
     tools:context=".CrateActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,10 +16,12 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/app_name" />
+        app:title="@string/app_name"
+        app:titleTextColor="#FFFFFF" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,17 +44,25 @@
                 android:gravity="center_horizontal"
                 android:text="Тренировка"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="#0078D4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Название" />
+                    android:hint="Название"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    android:textColorLink="#FFFFFF"
+                    android:textCursorDrawable="@color/colorPrimaryDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -60,7 +72,8 @@
                 android:gravity="center_horizontal"
                 android:text="Подготовка"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +85,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputPrep"
@@ -81,14 +96,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnPrepMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -98,7 +116,8 @@
                 android:gravity="center_horizontal"
                 android:text="Работа"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +129,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputWork"
@@ -119,14 +140,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnWorkMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -136,7 +160,8 @@
                 android:gravity="center_horizontal"
                 android:text="Отдых"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,7 +173,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputRest"
@@ -157,14 +184,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnRestMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -174,7 +204,8 @@
                 android:gravity="center_horizontal"
                 android:text="Циклы"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,7 +217,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputCycle"
@@ -195,14 +228,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnCycleMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -212,7 +248,8 @@
                 android:gravity="center_horizontal"
                 android:text="Сеты"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -224,7 +261,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputSet"
@@ -233,14 +272,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnSetMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -250,7 +292,8 @@
                 android:gravity="center_horizontal"
                 android:text="Успокоиться"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -262,7 +305,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#53A1DF"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
                 <EditText
                     android:id="@+id/inputCalm"
@@ -271,14 +316,17 @@
                     android:layout_weight="5"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnCalmMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#53A1DF"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
@@ -288,8 +336,8 @@
                 android:gravity="center_horizontal"
                 android:text="Цвет"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FFFFFF" />
 
 
             <com.divyanshu.colorseekbar.ColorSeekBar
@@ -298,35 +346,39 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp" />
 
-        <LinearLayout
+            <LinearLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="Отмена" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Сохранить"
-                android:layout_marginLeft="60dp"
-                tools:ignore="MissingConstraints" />
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:background="#53A1DF"
+                    android:text="Отмена"
+                    android:textColor="#FFFFFF" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:background="#53A1DF"
+                    android:text="Сохранить"
+                    android:textColor="#FFFFFF"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:background="#0078D4" />
         </LinearLayout>
     </ScrollView>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
