@@ -11,6 +11,10 @@ import android.widget.ListView;
 import com.example.timer.Data.AppDatabase;
 import com.example.timer.Models.Training;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     AppDatabase db;
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.buttonAddTraining).setOnClickListener(i -> {
-            Intent intent = new Intent(this, CrateActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CrateEditActivity.class);
             intent.putExtra("trainingId", new int[]{0,0});
             startActivity(intent);
         });

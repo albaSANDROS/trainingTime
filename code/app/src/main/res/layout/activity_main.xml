@@ -26,8 +26,9 @@
     <ListView
         android:id="@+id/ListTraining"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="55dp"
         android:background="#0078D4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
