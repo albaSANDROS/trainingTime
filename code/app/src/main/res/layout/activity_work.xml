@@ -38,42 +38,56 @@
                 android:id="@+id/partName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#0078D4"
                 android:gravity="center_horizontal"
                 android:text="Название этапа"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/partTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#0078D4"
                 android:gravity="center_horizontal"
                 android:text="Время с отсчётом"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#0078D4"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:textAlignment="center"
-                android:gravity="center_horizontal">
+                android:textAlignment="center">
+
                 <Button
                     android:id="@+id/btnStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Старт" />
+                    android:background="#53A1DF"
+                    android:text="Старт"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnStop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Пауза" />
+                    android:background="#1365A3"
+                    android:text="Пауза"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
+
             <ListView
                 android:id="@+id/allParts"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="10"
+                android:background="#0078D4"
                 android:scrollbarSize="3dp"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
