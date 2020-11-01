@@ -2,9 +2,14 @@ package com.example.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +19,9 @@ import android.widget.TextView;
 
 import com.example.timer.Data.AppDatabase;
 import com.example.timer.Models.Training;
+import com.example.timer.Services.TimerService;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class WorkActivity extends AppCompatActivity {
 
@@ -31,15 +33,17 @@ public class WorkActivity extends AppCompatActivity {
     Button btnStart;
     Button btnStop;
 
-    Timer timer;
-    Runnable Timer_Tick;
-
     ArrayList<String> items = new ArrayList<>();
     ArrayList<String> parts;
     ArrayList<Integer> times;
 
-    int t = 10;
-    int counter = 0;
+    boolean bound = false;
+    boolean isPaused = false;
+    ServiceConnection sConn;
+    Intent intentService;
+    TimerService timerService;
+    int id;
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,75 +53,111 @@ public class WorkActivity extends AppCompatActivity {
         db = App.getInstance().getDatabase();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        int id = (int)bundle.get("trainingId");
-
+        id = (int)bundle.get("trainingId");
         Training training = db.trainingDao().getById(id);
         CreateItemSequence(training);
-        namePart = findViewById(R.id.partName);
-        timePart = findViewById(R.id.partTime);
-        allParts = findViewById(R.id.allParts);
-        btnStart = findViewById(R.id.btnStart);
-        btnStop = findViewById(R.id.btnStop);
+        Init();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         allParts.setAdapter(adapter);
 
-        int size = parts.size()-1;
-        Timer_Tick = () -> {
-            if(times.get(counter) < 0){
-                if(counter < size){
-                    counter++;
-                }
-                else {
-                    timer.cancel();
-                    timer = null;
-                }
+        intentService = new Intent(this, TimerService.class);
+        sConn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder binder) {
+                timerService = ((TimerService.MyBinder) binder).getService();
+                bound = true;
             }
-            int value = times.get(counter);
-            String temp = Integer.toString(value);
-            timePart.setText(temp);
-            namePart.setText(parts.get(counter));
-            if(counter < size){
-                value--;
+
+            public void onServiceDisconnected(ComponentName name) {
+                bound = false;
             }
-            else {
-                timePart.setText("Тренировка завершена");
-            }
-            times.set(counter, value);
         };
 
+        TimerSequence(training);
         btnStart.setOnClickListener(i -> {
-            if (timer != null) {
-                timer.cancel();
-            }
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    TimerMethod();
-                    int d = times.get(counter);
+            if (!isPaused) {
+                if (TimerService.flag) {
+                    TimerSequence(training);
+                    startService(intentService.putExtra("serviceId", id));
                 }
-            }, 0, 1000);
+                timerService.Init(times, parts, id);
+            }
+            timerService.schedule();
+            isPaused = false;
         });
 
         btnStop.setOnClickListener(i -> {
-            if (timer != null) {
-                timer.cancel();
-                timer = null;
-            }
+            isPaused = true;
+            timerService.stopTimer();
+            stopService(new Intent(this, TimerService.class));
         });
 
         allParts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+                                    int position, long _id) {
                 TimerSequence(training);
-                counter = position;
+                timerService.Init(times, parts, id);
+                timerService.shedule(position);
             }
         });
     }
 
-    private void TimerMethod() {
-        this.runOnUiThread(Timer_Tick);
+    public void Init(){
+        namePart = findViewById(R.id.partName);
+        timePart = findViewById(R.id.partTime);
+        allParts = findViewById(R.id.allParts);
+        btnStart = findViewById(R.id.btnStart);
+        btnStop = findViewById(R.id.btnStop);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(receiver, new IntentFilter(TimerService.STR_RECEIVER));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindService(intentService, sConn, 0);
+        startService(new Intent(this, TimerService.class).putExtra("serviceId", id));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onStop() {
+        if (!bound) return;
+        unbindService(sConn);
+        bound = false;
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, TimerService.class));
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            UpdateUI(intent);
+        }
+    };
+
+    private void UpdateUI(Intent intent){
+        if (intent.getExtras() != null) {
+            String[] data = (String[]) intent.getExtras().get("countdown");
+            timePart.setText(data[0]);
+            namePart.setText(data[1]);
+        }
     }
 
     private void TimerSequence(Training training){
