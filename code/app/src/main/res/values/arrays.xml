@@ -1,0 +1,33 @@
+<resources>
+    <string-array name="language_entries">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="size_entries">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="size_values">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>Тёмная</item>
+        <item>Светлая</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>Тёмная</item>
+        <item>Светлая</item>
+    </string-array>
+</resources>

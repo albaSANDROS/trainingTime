@@ -1,6 +1,8 @@
 package com.example.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -18,73 +20,65 @@ import com.example.timer.Adapters.PartsAdapter;
 import com.example.timer.Data.AppDatabase;
 import com.example.timer.Models.Stage;
 import com.example.timer.Models.Training;
-import com.example.timer.Models.TrainingStages;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar;
 import codes.side.andcolorpicker.model.IntegerHSLColor;
 
-public class EditActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity {
 
     ArrayList<Stage> stages = new ArrayList<>();
     Training training = new Training();
     AppDatabase db;
     ListView lst;
-
     HSLColorPickerSeekBar bar;
     EditText inputName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(R.layout.activity_create);
+
         db = App.getInstance().getDatabase();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        long id = (long) bundle.get("trainingId");
+
         findControls();
-        getDataFromDb(id);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
-        inputName.setText(training.name);
-        bar.setPickedColor(convertToIntegerHSLColor(training.Color));
         PartsAdapter adapter = new PartsAdapter(this, R.layout.list_stage_item, stages);
         lst.setAdapter(adapter);
 
-        findViewById(R.id.btnEdit).setOnClickListener(i -> {
-            if (!inputName.getText().toString().equals("")) {
+        findViewById(R.id.bntAddStage).setOnClickListener(i -> {
+            AddStageDialog dialogFragment = new AddStageDialog();
+            FragmentManager manager = getSupportFragmentManager();
+
+            FragmentTransaction transaction = manager.beginTransaction();
+            dialogFragment.show(transaction, "dialog");
+        });
+
+        findViewById(R.id.btnSave).setOnClickListener(i -> {
+            if (!inputName.getText().toString().equals("") && stages.size() != 0) {
                 training.name = inputName.getText().toString();
                 IntegerHSLColor hslColor = bar.getPickedColor();
                 training.Color = Color.HSVToColor(new float[]{hslColor.getFloatH(), hslColor.getFloatL()
                         , hslColor.getFloatS()});
-                db.trainingDao().update(training);
-                for (Stage stage : stages) {
-                    db.trainingDao().update(stage);
-                }
-                Intent backIntent = new Intent(this, MainActivity.class);
-                startActivity(backIntent);
+                db.trainingDao().insert(training, stages);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
+            } else if (stages.size() == 0) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Добавьте этапы тренировки", Toast.LENGTH_SHORT);
+                toast.show();
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Напишите название тренировки", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
     }
 
-    private IntegerHSLColor convertToIntegerHSLColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        IntegerHSLColor integerHSLColor = new IntegerHSLColor();
-        integerHSLColor.setFloatH(hsv[0]);
-        integerHSLColor.setFloatL(hsv[1]);
-        integerHSLColor.setFloatS(hsv[2]);
-        return integerHSLColor;
-    }
+    ArrayList<String> names;
 
 
     private void findControls() {
@@ -93,14 +87,26 @@ public class EditActivity extends AppCompatActivity {
         bar = findViewById(R.id.hueSeekBar);
     }
 
-    private void getDataFromDb(long id) {
-        List<TrainingStages> trainingStages = db.trainingDao().getTrainingStagesByTrainingId(id);
-        for (TrainingStages trainingStage : trainingStages) {
-            stages = (ArrayList<Stage>) trainingStage.stages;
-            training.id = trainingStage.training.id;
-            training.name = trainingStage.training.name;
-            training.Color = trainingStage.training.Color;
-            break;
+    private void getAllNames() {
+        names = null;
+        names = new ArrayList<>();
+        for (Stage stage : stages) {
+            names.add(stage.stageName);
+        }
+    }
+
+
+    public void setDataFromDialog(String partName, String partTime) {
+        getAllNames();
+        if (names.contains("Сеты") && partName.equals("Сеты")) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нельзя добавлять два этапа \"Сеты\"", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Stage stage = new Stage();
+            stage.stageName = partName;
+            stage.stageTime = Integer.parseInt(partTime);
+            stages.add(stage);
         }
     }
 }

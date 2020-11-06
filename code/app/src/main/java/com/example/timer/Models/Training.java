@@ -6,14 +6,8 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Training {
     @PrimaryKey(autoGenerate = true)
-    public int Id;
+    public long id;
 
-    public String Name;
-    public int PreparationTime;
-    public int WorkTime;
-    public int RestTime;
-    public int Calm;
-    public int Cycles;
-    public int Sets;
+    public String name;
     public int Color;
 }

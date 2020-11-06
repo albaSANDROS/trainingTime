@@ -1,0 +1,34 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0078D4"
+    android:layout_marginTop="10dp">
+    <PreferenceCategory app:title="@string/language_header">
+        <ListPreference
+            app:defaultValue=""
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:key="language"
+            app:title="@string/language_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/font">
+        <ListPreference
+            android:defaultValue="false"
+            app:entries="@array/size_entries"
+            app:entryValues="@array/size_values"
+            app:key="font"
+            app:title="@string/font_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/theme">
+        <ListPreference
+            android:defaultValue="false"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:key="theme"
+            app:title="@string/theme_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

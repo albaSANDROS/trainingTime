@@ -8,24 +8,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.timer.Data.AppDatabase;
-import com.example.timer.Models.Training;
+import com.example.timer.Models.Stage;
+import com.example.timer.Models.TrainingStages;
 import com.example.timer.Services.TimerService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorkActivity extends AppCompatActivity {
 
     private AppDatabase db;
+    ArrayList<Stage> trainingLst = new ArrayList<>();
 
     TextView namePart;
     TextView timePart;
@@ -34,30 +41,31 @@ public class WorkActivity extends AppCompatActivity {
     Button btnStop;
 
     ArrayList<String> items = new ArrayList<>();
-    ArrayList<String> parts;
-    ArrayList<Integer> times;
 
     boolean bound = false;
     boolean isPaused = false;
     ServiceConnection sConn;
     Intent intentService;
     TimerService timerService;
-    int id;
- 
+    long id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         db = App.getInstance().getDatabase();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        id = (int)bundle.get("trainingId");
-        Training training = db.trainingDao().getById(id);
-        CreateItemSequence(training);
+        id = (long) bundle.get("trainingId");
+
+
         Init();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        getDataFromDb(id);
+        getLstData();
+        WorkAdapter adapter = new
+                WorkAdapter(this, R.layout.work_list_item, items);
         allParts.setAdapter(adapter);
 
         intentService = new Intent(this, TimerService.class);
@@ -73,14 +81,12 @@ public class WorkActivity extends AppCompatActivity {
             }
         };
 
-        TimerSequence(training);
         btnStart.setOnClickListener(i -> {
             if (!isPaused) {
-                if (TimerService.flag) {
-                    TimerSequence(training);
+                if (TimerService.isFinished) {
                     startService(intentService.putExtra("serviceId", id));
                 }
-                timerService.Init(times, parts, id);
+                timerService.Init(trainingLst);
             }
             timerService.schedule();
             isPaused = false;
@@ -89,21 +95,26 @@ public class WorkActivity extends AppCompatActivity {
         btnStop.setOnClickListener(i -> {
             isPaused = true;
             timerService.stopTimer();
-            stopService(new Intent(this, TimerService.class));
         });
 
         allParts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long _id) {
-                TimerSequence(training);
-                timerService.Init(times, parts, id);
-                timerService.shedule(position);
+                for (int i = 0; i < items.size(); i++) {
+                    allParts.setItemChecked(i, false);
+                    allParts.setSelected(true);
+                }
+                setChecked(position);
+
+                getDataFromDb(id);
+                timerService.Init(trainingLst);
+                timerService.schedule(position);
             }
         });
     }
 
-    public void Init(){
+    public void Init() {
         namePart = findViewById(R.id.partName);
         timePart = findViewById(R.id.partTime);
         allParts = findViewById(R.id.allParts);
@@ -111,6 +122,47 @@ public class WorkActivity extends AppCompatActivity {
         btnStop = findViewById(R.id.btnStop);
     }
 
+    private void getLstData() {
+        int sets = 1;
+        ArrayList<String> tempItems = new ArrayList<>();
+        List<TrainingStages> trainingStages = db.trainingDao().getTrainingStagesByTrainingId(id);
+        for (TrainingStages trainingStage : trainingStages) {
+            trainingLst = (ArrayList<Stage>) trainingStage.stages;
+            for (Stage stage : trainingStage.stages) {
+                if (!stage.stageName.equals("Сеты")) {
+                    tempItems.add(stage.stageName + ":" + Integer.toString(stage.stageTime));
+                } else {
+                    sets = stage.stageTime;
+                }
+            }
+            break;
+        }
+        for (int i = 0; i < sets; i++) {
+            items.addAll(tempItems);
+        }
+    }
+
+    private void getDataFromDb(long id) {
+        int sets = 1;
+        trainingLst.clear();
+        List<TrainingStages> trainingStages = db.trainingDao().getTrainingStagesByTrainingId(id);
+        ArrayList<Stage> tempStages = new ArrayList<>();
+        for (TrainingStages trainingStage : trainingStages) {
+            trainingLst = (ArrayList<Stage>) trainingStage.stages;
+            for (Stage stage : trainingStage.stages) {
+                if (!stage.stageName.equals("Сеты")) {
+                    tempStages.add(stage);
+                } else {
+                    sets = stage.stageTime;
+                }
+            }
+            break;
+        }
+        trainingLst.clear();
+        for (int i = 0; i < sets; i++) {
+            trainingLst.addAll(tempStages);
+        }
+    }
 
     @Override
     public void onResume() {
@@ -122,7 +174,7 @@ public class WorkActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         bindService(intentService, sConn, 0);
-        startService(new Intent(this, TimerService.class).putExtra("serviceId", id));
+        startService(new Intent(this, TimerService.class));
     }
 
     @Override
@@ -152,58 +204,66 @@ public class WorkActivity extends AppCompatActivity {
         }
     };
 
-    private void UpdateUI(Intent intent){
+    private void UpdateUI(Intent intent) {
         if (intent.getExtras() != null) {
             String[] data = (String[]) intent.getExtras().get("countdown");
             timePart.setText(data[0]);
             namePart.setText(data[1]);
+            setChecked(Integer.parseInt(data[2]));
         }
     }
 
-    private void TimerSequence(Training training){
-        String[] names = {"Работа","Отдых","Подготовиться","Отдых между подходами","Финиш"};
-        parts = new ArrayList<>();
-        times = new ArrayList<>();
-        parts.add(names[2]);
-        times.add(training.PreparationTime);
-
-        for(int i = 0; i < training.Sets; i++) {
-            for (int j = 0; j < training.Cycles; j++) {
-                parts.add(names[0]);
-                parts.add(names[1]);
-                times.add(training.WorkTime);
-                times.add(training.RestTime);
+    private void setChecked(int position) {
+        for (int i = 0; i < items.size(); i++) {
+            if (i == position) {
+                allParts.setItemChecked(position, true);
+            } else {
+                allParts.setItemChecked(i, false);
             }
-            parts.add(names[3]);
-            times.add(training.Calm);
+            allParts.setSelected(true);
         }
-        parts.add(names[4]);
-        times.add(0);
     }
 
-    private void CreateItemSequence(Training training){
-        String[] names = {"Работа","Отдых","Подготовиться","Отдых между подходами","Финиш"};
-        parts = new ArrayList<>();
-        times = new ArrayList<>();
-        items.add(names[2] + " : " + training.PreparationTime);
-        parts.add(names[2]);
-        times.add(training.PreparationTime);
+    class WorkAdapter extends ArrayAdapter<String> {
+        private LayoutInflater inflater;
+        private int layout;
+        private ArrayList<String> stages;
 
-        for(int i = 0; i < training.Sets; i++) {
-            for (int j = 0; j < training.Cycles; j++) {
-                items.add(names[0] + " : " + training.WorkTime);
-                items.add(names[1] + " : " + training.RestTime);
-                parts.add(names[0]);
-                parts.add(names[1]);
-                times.add(training.WorkTime);
-                times.add(training.RestTime);
-            }
-            items.add(names[3] + " : " + training.Calm);
-            parts.add(names[3]);
-            times.add(training.Calm);
+        public WorkAdapter(Context context, int resource, ArrayList<String> stages) {
+            super(context, resource, stages);
+            this.stages = stages;
+            this.layout = resource;
+            this.inflater = LayoutInflater.from(context);
         }
-        items.add(names[4]);
-        parts.add(names[4]);
-        times.add(0);
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            WorkAdapter.ViewHolder viewHolder;
+            if (convertView == null) {
+                convertView = inflater.inflate(this.layout, parent, false);
+                viewHolder = new WorkAdapter.ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (WorkAdapter.ViewHolder) convertView.getTag();
+            }
+            viewHolder.textNamePart.setText(stages.get(position));
+            if (allParts.isItemChecked(position)) {
+                viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                notifyDataSetChanged();
+            } else {
+                viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.colorDarkBackground));
+            }
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            public TextView textNamePart;
+            public LinearLayout layout;
+
+            ViewHolder(View view) {
+                textNamePart = view.findViewById(R.id.textNamePart);
+                layout = view.findViewById(R.id.item_container);
+            }
+        }
     }
 }

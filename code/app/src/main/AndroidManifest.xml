@@ -10,10 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".CreateActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+
         <service
             android:name=".Services.TimerService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".WorkActivity" />
         <activity
@@ -26,9 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".TimerPage" />
-        <activity
-            android:name=".CrateEditActivity"
-            android:noHistory="true" />
         <activity android:name=".MainActivity" />
     </application>
 
