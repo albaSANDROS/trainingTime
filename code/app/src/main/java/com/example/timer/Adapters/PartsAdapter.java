@@ -1,6 +1,7 @@
 package com.example.timer.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.timer.Dialogs.AddStageDialog;
+import com.example.timer.CreateActivity;
+import com.example.timer.Dialogs.DeleteStageDialog;
 import com.example.timer.Models.Stage;
 import com.example.timer.R;
 
@@ -39,6 +46,19 @@ public class PartsAdapter extends ArrayAdapter<Stage> {
         viewHolder.textNamePart.setText(stage.stageName);
 
         viewHolder.inputTime.setText(Integer.toString(stage.stageTime));
+
+        viewHolder.inputTime.setOnClickListener(i -> {
+            CreateActivity activity = (CreateActivity)getContext();
+            DeleteStageDialog dialogFragment = new DeleteStageDialog();
+            FragmentManager manager = activity.getSupportFragmentManager();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("index", position);
+            dialogFragment.setArguments(bundle);
+
+            FragmentTransaction transaction = manager.beginTransaction();
+            dialogFragment.show(transaction, "dialog");
+        });
 
         viewHolder.btnPlus.setOnClickListener(i -> {
             stage.stageTime++;

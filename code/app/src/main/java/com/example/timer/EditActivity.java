@@ -1,8 +1,10 @@
 package com.example.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import codes.side.andcolorpicker.model.IntegerHSLColor;
 
 public class EditActivity extends AppCompatActivity {
 
+    SharedPreferences sp;
     ArrayList<Stage> stages = new ArrayList<>();
     Training training = new Training();
     AppDatabase db;
@@ -39,6 +42,15 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = App.getInstance().getDatabase();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+            setTheme(R.style.AppThemeDark);
+        }
+        if (sp.getString("theme", "Светлая").equals("Светлая")) {
+            setTheme(R.style.AppThemeLight);
+        }
         setContentView(R.layout.activity_edit);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         db = App.getInstance().getDatabase();

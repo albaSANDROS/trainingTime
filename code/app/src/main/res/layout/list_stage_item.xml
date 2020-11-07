@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0078D4"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +12,7 @@
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#FFFFFF" />
+        android:textColor="?attr/colorSurface" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#53A1DF"
+            android:background="?attr/colorButtonNormal"
             android:text="+"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/titleTextColor" />
 
         <EditText
             android:id="@+id/inputTime"
@@ -37,16 +37,16 @@
             android:focusable="false"
             android:gravity="center_horizontal"
             android:textAlignment="center"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/colorControlNormal" />
 
         <Button
             android:id="@+id/btnMinus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#53A1DF"
+            android:background="?attr/colorButtonNormal"
             android:text="-"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/titleTextColor" />
     </LinearLayout>
 
 

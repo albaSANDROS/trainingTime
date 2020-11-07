@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#0078D4">
+    android:background="?attr/backgroundColor">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/app_name"
-        app:titleTextColor="#FFFFFF"/>
+        app:titleTextColor="?attr/titleTextColor"/>
 
     <FrameLayout
         android:id="@+id/settings"
@@ -31,7 +31,8 @@
         android:layout_marginLeft="65dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#53A1DF"
-        android:text=" Удалить всё "/>
+        android:background="?attr/colorButtonNormal"
+        android:text=" Удалить всё "
+        android:textColor="?attr/titleTextColor"/>
 
 </LinearLayout>

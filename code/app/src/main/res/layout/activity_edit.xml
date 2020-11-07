@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0078D4"
+    android:background="?attr/backgroundColor"
     tools:context=".EditActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         android:label="@string/app_name"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/app_name"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="?attr/titleTextColor" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -37,7 +37,7 @@
             android:text="Тренировка"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/colorControlNormal" />
 
 
         <EditText
@@ -46,11 +46,11 @@
             android:layout_height="wrap_content"
             android:hint="Название тренировки"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textColorLink="#FFFFFF"
-            android:textCursorDrawable="@color/colorAccent" />
+            android:textColor="?attr/colorControlNormal"
+            android:textColorHighlight="?attr/colorControlNormal"
+            android:textColorHint="?attr/colorControlNormal"
+            android:textColorLink="?attr/colorControlNormal"
+            android:textCursorDrawable="?attr/colorControlNormal" />
 
         <TextView
             android:id="@+id/textColor"
@@ -60,7 +60,7 @@
             android:text="Цвет"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/colorControlNormal" />
 
         <codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar
             android:id="@+id/hueSeekBar"
@@ -92,9 +92,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="#53A1DF"
+            android:background="?attr/colorButtonNormal"
             android:text="Изменить"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/titleTextColor"
             tools:ignore="MissingConstraints" />
 
     </LinearLayout>

@@ -3,8 +3,18 @@
     <color name="colorPrimary">#0C548A</color>
     <color name="colorDarkBackground">#0078D4</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="colorGreen">#32CD32</color>
+    <color name="colorGreen">#009688</color>
     <color name="colorYellow">#D9D919</color>
     <color name="colorRed">#cc0000</color>
-    <color name="colorGrey">#009688</color>
+
+
+
+    <color name="darkBackground">#27292D</color>
+    <color name="darkBarBackground">#CC4E4E50</color>
+    <color name="darkButton">#4E4E50</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="lightBackground">#FFFAFA</color>
+    <color name="lightBarBackground">#1E90FF</color>
+    <color name="lightButton">#1E90FF</color>
 </resources>

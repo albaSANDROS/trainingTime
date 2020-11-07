@@ -22,22 +22,18 @@ public class MainActivity extends AppCompatActivity {
     AppDatabase db;
     ListView lst;
     List<Training> trainings;
-    public static boolean isAllDeleted;//////////
     SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        isAllDeleted = false;////////////////////
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sp.getString("theme", "Тёмная").equals("Тёмная"))
-        {
+        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
-        if (sp.getString("theme", "Светлая").equals("Светлая"))
-        {
+        if (sp.getString("theme", "Светлая").equals("Светлая")) {
             setTheme(R.style.AppThemeLight);
         }
         setContentView(R.layout.activity_main);
@@ -46,15 +42,14 @@ public class MainActivity extends AppCompatActivity {
         trainings = db.trainingDao().getAllTrainings();
         lst = findViewById(R.id.ListTraining);
         TrainingAdapter adapter = new TrainingAdapter(this, R.layout.list_item
-                , trainings, db);
+                , trainings);
         lst.setAdapter(adapter);
 
-        lst.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Training training = (Training) parent.getItemAtPosition(position);
-                Intent intent = new Intent(getApplicationContext(),TimerPage.class);
+                Intent intent = new Intent(getApplicationContext(), TimerPage.class);
                 intent.putExtra("trainingId", training.id);
                 startActivity(intent);
             }
@@ -67,15 +62,17 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.btnSettings).setOnClickListener(i -> {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         });
     }
 
+    public void deleteTraining(Training training) {
+        db.trainingDao().delete(training);
+    }
+
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isAllDeleted){
-            recreate();
-        }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        recreate();
     }
 }

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.example.timer.Data.AppDatabase;
 import com.example.timer.EditActivity;
+import com.example.timer.MainActivity;
 import com.example.timer.Models.Training;
 import com.example.timer.R;
 import com.example.timer.WorkActivity;
@@ -22,26 +22,22 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
     private LayoutInflater inflater;
     private int layout;
     private List<Training> trainingList;
-    private AppDatabase db;
 
-    public TrainingAdapter(Context context, int resource, List<Training> trainings,
-                           AppDatabase db) {
+    public TrainingAdapter(Context context, int resource, List<Training> trainings) {
         super(context, resource, trainings);
         this.trainingList = trainings;
         this.layout = resource;
-        this.db = db;
         this.inflater = LayoutInflater.from(context);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Training training = trainingList.get(position);
@@ -58,9 +54,9 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
         });
 
         viewHolder.removeButton.setOnClickListener(i -> {
-                db.trainingDao().delete(trainingList.get(position));
-                trainingList.remove(training);
-                notifyDataSetChanged();
+            ((MainActivity) getContext()).deleteTraining(trainingList.get(position));
+            trainingList.remove(training);
+            notifyDataSetChanged();
         });
 
         viewHolder.editButton.setOnClickListener(i -> {
@@ -78,7 +74,8 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
         Button removeButton, editButton, startButton;
         TextView nameView, idView;
         LinearLayout layout;
-        ViewHolder(View view){
+
+        ViewHolder(View view) {
             removeButton = view.findViewById(R.id.removeButton);
             editButton = view.findViewById(R.id.editButton);
             startButton = view.findViewById(R.id.startButton);

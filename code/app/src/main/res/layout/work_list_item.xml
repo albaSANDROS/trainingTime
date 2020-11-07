@@ -14,5 +14,5 @@
         android:textAlignment="center"
         android:layout_marginTop="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF" />
+        android:textColor="?attr/colorControlNormal" />
 </LinearLayout>

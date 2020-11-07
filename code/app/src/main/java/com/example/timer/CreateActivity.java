@@ -3,21 +3,20 @@ package com.example.timer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.divyanshu.colorseekbar.ColorSeekBar;
 import com.example.timer.Adapters.PartsAdapter;
 import com.example.timer.Data.AppDatabase;
+import com.example.timer.Dialogs.AddStageDialog;
 import com.example.timer.Models.Stage;
 import com.example.timer.Models.Training;
 
@@ -28,24 +27,32 @@ import codes.side.andcolorpicker.model.IntegerHSLColor;
 
 public class CreateActivity extends AppCompatActivity {
 
+    SharedPreferences sp;
     ArrayList<Stage> stages = new ArrayList<>();
     Training training = new Training();
     AppDatabase db;
     ListView lst;
     HSLColorPickerSeekBar bar;
     EditText inputName;
+    PartsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
-
         db = App.getInstance().getDatabase();
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+            setTheme(R.style.AppThemeDark);
+        }
+        if (sp.getString("theme", "Светлая").equals("Светлая")) {
+            setTheme(R.style.AppThemeLight);
+        }
+        setContentView(R.layout.activity_create);
         findControls();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        PartsAdapter adapter = new PartsAdapter(this, R.layout.list_stage_item, stages);
+        adapter = new PartsAdapter(this, R.layout.list_stage_item, stages);
         lst.setAdapter(adapter);
 
         findViewById(R.id.bntAddStage).setOnClickListener(i -> {
@@ -95,6 +102,10 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
+    public void deleteStage(int id){
+        stages.remove(id);
+        adapter.notifyDataSetChanged();
+    }
 
     public void setDataFromDialog(String partName, String partTime) {
         getAllNames();

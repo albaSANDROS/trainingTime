@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0078D4"
+    android:background="?attr/backgroundColor"
     tools:context=".TimerPage">
 
 
@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
             android:label="@string/app_name"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/app_name"
-            app:titleTextColor="#FFFFFF" />
+            app:titleTextColor="?attr/titleTextColor" />
 
         <TextView
             android:id="@+id/nameTraining"
@@ -39,7 +39,7 @@
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF" />
+            android:textColor="?attr/colorControlNormal" />
 
     </LinearLayout>
 

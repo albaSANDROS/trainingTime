@@ -20,14 +20,14 @@ public class TimerService extends Service {
     MyBinder binder = new MyBinder();
     public static String STR_RECEIVER = "com.example.timer.Services";
     Timer timer;
-    //static TimerTask tTask;
-    TimerTask tTask;
+
+//    TimerTask tTask;
     Intent intent;
     ArrayList<Stage> stages = new ArrayList<>();
 
     int counter = 0;
-    //static long id;
-    public static boolean isFinished = false;
+    static long id;
+    static TimerTask tTask;
 
     public void onCreate() {
         super.onCreate();
@@ -36,60 +36,53 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        if (id != (long) intent.getExtras().get("serviceId")) {
-//            if (tTask != null) {
-//                tTask.cancel();
-//                tTask = null;
-//                intent.putExtra("countdown", new String[]{"Время с отсчётом"
-//                        , "Название этапа"});
-//                sendBroadcast(intent);
-//            }
-//        }
-
+        if (id != (long) intent.getExtras().get("serviceId")) {
+            if (tTask != null) {
+                tTask.cancel();
+                tTask = null;
+                intent.putExtra("countdown", new String[]{"Время с отсчётом"
+                        , "Название этапа", String.valueOf(-1)});
+                sendBroadcast(intent);
+            }
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
     public void schedule(int _count) {
         counter = _count;
         timer = new Timer();
+        int size = stages.size();
         if (tTask != null) tTask.cancel();
         tTask = new TimerTask() {
             public void run() {
-                int size = stages.size();
-                if (stages.get(counter).stageTime < 0) {
-                    if (counter < size) {
-                        counter++;
-                    } else {
-                        timer.cancel();
-                        timer = null;
-                    }
-                }
-                int value = stages.get(counter).stageTime;
-                String temp = Integer.toString(value);
-                if (value <= 3) {
+                int time = stages.get(counter).stageTime;
+                String name = stages.get(counter).stageName;
+                intent.putExtra("countdown", new String[]{Integer.toString(time)
+                        , name
+                        , String.valueOf(counter)});
+                sendBroadcast(intent);
+                if (time <= 3) {
                     Uri notify = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notify);
                     r.play();
                 }
-
-                intent.putExtra("countdown", new String[]{temp, stages.get(counter).stageName
-                        , String.valueOf(counter)});
-                sendBroadcast(intent);
-                if (counter < size) {
-                    value--;
-                } else {
-                    intent.putExtra("countdown",
-                            new String[]{"Тренировка завершена", "0", String.valueOf(size)});
+                if (counter < size - 1 && time == 0) {
+                    counter++;
+                } else if (counter == size - 1) {
+                    intent.putExtra("countdown", new String[]{Integer.toString(0)
+                            , "Тренировка закончена"
+                            , String.valueOf(counter)});
                     sendBroadcast(intent);
-                    isFinished = true;
                     timer.cancel();
                     timer = null;
                 }
-                Stage tempStage = new Stage();
-                tempStage.stageName = stages.get(counter).stageName;
-                tempStage.stageTime = value;
-                stages.set(counter, tempStage);
-
+                if (time != 0) {
+                    time--;
+                    Stage tempStage = new Stage();
+                    tempStage.stageName = name;
+                    tempStage.stageTime = time;
+                    stages.set(counter, tempStage);
+                }
             }
         };
         timer.schedule(tTask, 0, 1000);
@@ -110,10 +103,15 @@ public class TimerService extends Service {
         return binder;
     }
 
-    public void Init(ArrayList<Stage> _stages) {
+    public void Init(ArrayList<Stage> _stages, long _id) {
         stages.clear();
         stages = _stages;
+        Stage addStage = new Stage();
+        addStage.stageName = "";
+        addStage.stageTime = 0;
+        stages.add(addStage);
         counter = 0;
+        id = _id;
     }
 
     @Override

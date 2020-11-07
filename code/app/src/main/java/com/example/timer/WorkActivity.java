@@ -1,6 +1,7 @@
 package com.example.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -32,6 +34,7 @@ import java.util.List;
 public class WorkActivity extends AppCompatActivity {
 
     private AppDatabase db;
+    SharedPreferences sp;
     ArrayList<Stage> trainingLst = new ArrayList<>();
 
     TextView namePart;
@@ -52,6 +55,13 @@ public class WorkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+            setTheme(R.style.AppThemeDark);
+        }
+        if (sp.getString("theme", "Светлая").equals("Светлая")) {
+            setTheme(R.style.AppThemeLight);
+        }
         setContentView(R.layout.activity_work);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -83,13 +93,14 @@ public class WorkActivity extends AppCompatActivity {
 
         btnStart.setOnClickListener(i -> {
             if (!isPaused) {
-                if (TimerService.isFinished) {
-                    startService(intentService.putExtra("serviceId", id));
-                }
-                timerService.Init(trainingLst);
+                startService(intentService.putExtra("serviceId", id));
+                getDataFromDb(id);
+                timerService.Init(trainingLst, id);
+                timerService.schedule();
+            } else {
+                timerService.schedule();
+                isPaused = false;
             }
-            timerService.schedule();
-            isPaused = false;
         });
 
         btnStop.setOnClickListener(i -> {
@@ -108,7 +119,7 @@ public class WorkActivity extends AppCompatActivity {
                 setChecked(position);
 
                 getDataFromDb(id);
-                timerService.Init(trainingLst);
+                timerService.Init(trainingLst, id);
                 timerService.schedule(position);
             }
         });
@@ -174,7 +185,7 @@ public class WorkActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         bindService(intentService, sConn, 0);
-        startService(new Intent(this, TimerService.class));
+        startService(new Intent(this, TimerService.class).putExtra("serviceId", id));
     }
 
     @Override
@@ -250,7 +261,13 @@ public class WorkActivity extends AppCompatActivity {
                 viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.colorYellow));
                 notifyDataSetChanged();
             } else {
-                viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.colorDarkBackground));
+                if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+                    viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.darkBackground));
+                }
+                if (sp.getString("theme", "Светлая").equals("Светлая")) {
+                    viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.lightBackground));
+                }
+
             }
 
             return convertView;

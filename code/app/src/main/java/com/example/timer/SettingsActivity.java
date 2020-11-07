@@ -1,5 +1,6 @@
 package com.example.timer;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -21,8 +22,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = App.getInstance().getDatabase();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        db = App.getInstance().getDatabase();
+
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         if (sp.getString("theme", "Тёмная").equals("Тёмная"))
         {
@@ -43,7 +45,9 @@ public class SettingsActivity extends AppCompatActivity {
             for(int j = 0; j < trainings.size(); j++){
                 db.trainingDao().delete(trainings.get(j));
             }
-            MainActivity.isAllDeleted = true;
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
         });
     }
 

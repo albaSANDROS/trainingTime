@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/backgroundColor">
-
+    android:background="#0078D4">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             android:label="@string/app_name"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,27 +23,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Добавление этапа"
-            app:titleTextColor="?attr/titleTextColor" />
+            app:title="Удаление этапа"
+            app:titleTextColor="#FFFFFF" />
 
-        <Spinner
-            android:id="@+id/spnNameStage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/inputPartTime"
-            android:hint="Время этапа"
+        <TextView
+            android:id="@+id/textViewDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:gravity="center_horizontal"
+            android:text="Удалить выбранную стадию?"
             android:textAlignment="center"
-            android:textColor="?attr/colorControlNormal"
-            android:textColorHighlight="?attr/colorControlNormal"
-            android:textColorHint="?attr/colorControlNormal"
-            android:textColorLink="?attr/colorControlNormal"
-            android:textCursorDrawable="?attr/colorControlNormal"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,9 +49,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="2dp"
-                android:background="?attr/colorButtonNormal"
-                android:textColor="?attr/titleTextColor"
-                android:text="Добавить" />
+                android:background="#53A1DF"
+                android:textColor="#FFFFFF"
+                android:text="Удалить" />
 
             <Button
                 android:id="@+id/btnDialogCancel"
@@ -64,8 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
-                android:background="?attr/colorButtonNormal"
-                android:textColor="?attr/titleTextColor"
+                android:background="#53A1DF"
+                android:textColor="#FFFFFF"
                 android:text="Отмена" />
         </LinearLayout>
     </LinearLayout>
