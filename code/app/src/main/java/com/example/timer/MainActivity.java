@@ -6,9 +6,11 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.timer.Adapters.TrainingAdapter;
@@ -16,6 +18,7 @@ import com.example.timer.Data.AppDatabase;
 import com.example.timer.Models.Training;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +27,17 @@ public class MainActivity extends AppCompatActivity {
     List<Training> trainings;
     SharedPreferences sp;
 
+    Button buttonAddTraining;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String size = sp.getString("font", "");
+        String lang = sp.getString("language", "");
+        setLocale(lang);
         if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
@@ -42,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         trainings = db.trainingDao().getAllTrainings();
         lst = findViewById(R.id.ListTraining);
         TrainingAdapter adapter = new TrainingAdapter(this, R.layout.list_item
-                , trainings);
+                , trainings, size);
         lst.setAdapter(adapter);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        buttonAddTraining = findViewById(R.id.buttonAddTraining);
+        buttonAddTraining.setTextSize(Float.parseFloat(size));
         findViewById(R.id.buttonAddTraining).setOnClickListener(i -> {
             Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
             startActivity(intent);
@@ -64,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivityForResult(intent, 1);
         });
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, null);
     }
 
     public void deleteTraining(Training training) {

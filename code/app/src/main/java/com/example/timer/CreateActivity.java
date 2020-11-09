@@ -8,10 +8,13 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timer.Adapters.PartsAdapter;
@@ -21,6 +24,7 @@ import com.example.timer.Models.Stage;
 import com.example.timer.Models.Training;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar;
 import codes.side.andcolorpicker.model.IntegerHSLColor;
@@ -35,6 +39,12 @@ public class CreateActivity extends AppCompatActivity {
     HSLColorPickerSeekBar bar;
     EditText inputName;
     PartsAdapter adapter;
+    TextView textViewTraining;
+    TextView textColor;
+    Button bntAddStage;
+    Button btnSave;
+
+    String activityName = "CreateActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +52,8 @@ public class CreateActivity extends AppCompatActivity {
         db = App.getInstance().getDatabase();
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String size = sp.getString("font", "");
+        String lang = sp.getString("language", "");
         if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
@@ -50,9 +62,14 @@ public class CreateActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_create);
         findControls();
+        textViewTraining.setTextSize(Float.parseFloat(size));
+        inputName.setTextSize(Float.parseFloat(size));
+        textColor.setTextSize(Float.parseFloat(size));
+        bntAddStage.setTextSize(Float.parseFloat(size));
+        btnSave.setTextSize(Float.parseFloat(size));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        adapter = new PartsAdapter(this, R.layout.list_stage_item, stages);
+        adapter = new PartsAdapter(this, R.layout.list_stage_item, stages, size, activityName);
         lst.setAdapter(adapter);
 
         findViewById(R.id.bntAddStage).setOnClickListener(i -> {
@@ -66,6 +83,7 @@ public class CreateActivity extends AppCompatActivity {
         findViewById(R.id.btnSave).setOnClickListener(i -> {
             if (!inputName.getText().toString().equals("") && stages.size() != 0) {
                 training.name = inputName.getText().toString();
+                training.locale = lang;
                 IntegerHSLColor hslColor = bar.getPickedColor();
                 training.Color = Color.HSVToColor(new float[]{hslColor.getFloatH(), hslColor.getFloatL()
                         , hslColor.getFloatS()});
@@ -75,11 +93,11 @@ public class CreateActivity extends AppCompatActivity {
                 finish();
             } else if (stages.size() == 0) {
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Добавьте этапы тренировки", Toast.LENGTH_SHORT);
+                        getResources().getString(R.string.toastInputStages), Toast.LENGTH_SHORT);
                 toast.show();
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Напишите название тренировки", Toast.LENGTH_SHORT);
+                        getResources().getString(R.string.toastInputName), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -91,8 +109,13 @@ public class CreateActivity extends AppCompatActivity {
     private void findControls() {
         lst = findViewById(R.id.listStages);
         inputName = findViewById(R.id.inputName);
+        textViewTraining = findViewById(R.id.textViewTraining);
         bar = findViewById(R.id.hueSeekBar);
+        textColor = findViewById(R.id.textColor);
+        bntAddStage = findViewById(R.id.bntAddStage);
+        btnSave = findViewById(R.id.btnSave);
     }
+
 
     private void getAllNames() {
         names = null;
@@ -109,9 +132,10 @@ public class CreateActivity extends AppCompatActivity {
 
     public void setDataFromDialog(String partName, String partTime) {
         getAllNames();
-        if (names.contains("Сеты") && partName.equals("Сеты")) {
+        if (names.contains(getResources().getStringArray(R.array.stages)[3])
+                && partName.equals(getResources().getStringArray(R.array.stages)[3])) {
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нельзя добавлять два этапа \"Сеты\"", Toast.LENGTH_SHORT);
+                    getResources().getString(R.string.toastTwiceSet), Toast.LENGTH_SHORT);
             toast.show();
         } else {
             Stage stage = new Stage();

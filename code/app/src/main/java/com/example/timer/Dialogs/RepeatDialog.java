@@ -15,8 +15,9 @@ import androidx.preference.PreferenceManager;
 
 import com.example.timer.CreateActivity;
 import com.example.timer.R;
+import com.example.timer.WorkActivity;
 
-public class DeleteStageDialog extends AppCompatDialogFragment {
+public class RepeatDialog extends AppCompatDialogFragment {
     TextView textView;
     SharedPreferences sp;
     Button btnDialogOk;
@@ -27,7 +28,7 @@ public class DeleteStageDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.delete_stage_dialog, null);
+        View view = inflater.inflate(R.layout.repeat_dialog, null);
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String size = sp.getString("font", "");
@@ -39,19 +40,14 @@ public class DeleteStageDialog extends AppCompatDialogFragment {
         btnDialogCancel.setTextSize(Float.parseFloat(size));
         textView.setTextSize(Float.parseFloat(size));
 
-        Bundle args = getArguments();
-        int index = 0;
-        if (args != null) {
-            index = args.getInt("index");
-        }
 
         view.findViewById(R.id.btnDialogCancel).setOnClickListener(i -> {
             dismiss();
+            getActivity().finish();
         });
 
-        int finalIndex = index;
         view.findViewById(R.id.btnDialogOk).setOnClickListener(i -> {
-            ((CreateActivity) getActivity()).deleteStage(finalIndex);
+            ((WorkActivity) getActivity()).startTimer();
             dismiss();
         });
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="size_entries">
+        <item>Маленький</item>
+        <item>Средний</item>
+        <item>Большой</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>Тёмная</item>
+        <item>Светлая</item>
+    </string-array>
+</resources>

@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Название этапа"
+                android:text="@string/labelNameStage"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="?attr/colorControlNormal" />
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Время с отсчётом"
+                android:text="@string/labelCountDown"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="?attr/colorControlNormal" />
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:background="?attr/colorButtonNormal"
-                    android:text="Старт"
+                    android:text="@string/btnStart"
                     android:textAllCaps="false"
                     android:textColor="?attr/titleTextColor" />
 
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorButtonNormal"
-                    android:text="Пауза"
+                    android:text="@string/btnPause"
                     android:textColor="?attr/titleTextColor" />
             </LinearLayout>
 

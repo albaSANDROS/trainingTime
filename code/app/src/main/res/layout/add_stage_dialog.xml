@@ -21,17 +21,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Добавление этапа"
+            app:title="@string/titleAddStage"
             app:titleTextColor="?attr/titleTextColor" />
 
         <Spinner
             android:id="@+id/spnNameStage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:popupBackground="?attr/backgroundColor"/>
 
         <EditText
             android:id="@+id/inputPartTime"
-            android:hint="Время этапа"
+            android:hint="@string/hintStageTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -56,7 +57,7 @@
                 android:layout_marginRight="2dp"
                 android:background="?attr/colorButtonNormal"
                 android:textColor="?attr/titleTextColor"
-                android:text="Добавить" />
+                android:text="@string/btnSaveStage" />
 
             <Button
                 android:id="@+id/btnDialogCancel"
@@ -66,7 +67,7 @@
                 android:layout_weight="1"
                 android:background="?attr/colorButtonNormal"
                 android:textColor="?attr/titleTextColor"
-                android:text="Отмена" />
+                android:text="@string/btnCancel" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/titleDeleteStage"
+            app:title="@string/finishedTraining"
             app:titleTextColor="?attr/titleTextColor" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="center_horizontal"
-            android:text="@string/labelDeleteStage"
+            android:text="@string/repeatTraining"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="?attr/colorControlNormal" />
@@ -50,7 +50,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
                 android:background="?attr/colorButtonNormal"
-                android:text="@string/btnDeleteStage"
+                android:text="@string/yes"
                 android:textColor="?attr/titleTextColor" />
 
             <Button

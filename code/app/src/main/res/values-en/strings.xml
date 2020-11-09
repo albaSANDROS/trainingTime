@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">trainingTime</string>
+    <string name="language_header">Language</string>
+    <string name="language_title">Select language</string>
+    <string name="font">Font</string>
+    <string name="font_title">Select font size</string>
+    <string name="theme">Theme</string>
+    <string name="theme_title">Select theme</string>
+    <string name="btnDeleteAll">Delete all</string>
+    <string name="addTrainingButton">Add training</string>
+    <string name="labelTraining">Training</string>
+    <string name="hintNameTraining">Training name</string>
+    <string name="labelColor">Color</string>
+    <string name="btnAddStage">Add stage</string>
+    <string name="btnSaveTraining">Save</string>
+    <string name="titleAddStage">Adding stage</string>
+    <string name="hintStageTime">Stage time</string>
+    <string name="btnSaveStage">Add</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="hintSetsCount">Number of sets</string>
+    <string-array name="stages">
+        <item>Preparation</item>
+        <item>Work</item>
+        <item>Rest</item>
+        <item>Sets</item>
+    </string-array>
+    <string name="titleDeleteStage">Deleting stage</string>
+    <string name="labelDeleteStage">Delete selected stage?</string>
+    <string name="btnDeleteStage">Delete</string>
+    <string name="toastInputTimeStage">Enter stage time</string>
+    <string name="toastInputStages">Add stages of training</string>
+    <string name="toastInputName">Enter training name</string>
+    <string name="toastTwiceSet">"Cannot add two \"sets\" stages</string>
+    <string name="btnChange">Change</string>
+    <string name="labelNameStage">Stage name</string>
+    <string name="labelCountDown">Countdown time</string>
+    <string name="btnStart">Start</string>
+    <string name="btnPause">Pause</string>
+    <string name="finishedTraining">Training is finished</string>
+    <string name="repeatTraining">Want to restart your training?</string>
+    <string name="yes">Yes</string>
+</resources>

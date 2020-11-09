@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 
 import com.example.timer.Models.Stage;
+import com.example.timer.R;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -20,13 +21,10 @@ public class TimerService extends Service {
     MyBinder binder = new MyBinder();
     public static String STR_RECEIVER = "com.example.timer.Services";
     Timer timer;
-
-//    TimerTask tTask;
     Intent intent;
     ArrayList<Stage> stages = new ArrayList<>();
 
     int counter = 0;
-    static long id;
     static TimerTask tTask;
 
     public void onCreate() {
@@ -36,15 +34,6 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (id != (long) intent.getExtras().get("serviceId")) {
-            if (tTask != null) {
-                tTask.cancel();
-                tTask = null;
-                intent.putExtra("countdown", new String[]{"Время с отсчётом"
-                        , "Название этапа", String.valueOf(-1)});
-                sendBroadcast(intent);
-            }
-        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -70,8 +59,8 @@ public class TimerService extends Service {
                     counter++;
                 } else if (counter == size - 1) {
                     intent.putExtra("countdown", new String[]{Integer.toString(0)
-                            , "Тренировка закончена"
-                            , String.valueOf(counter)});
+                            , getResources().getString(R.string.finishedTraining)
+                            , "FINISHED"});
                     sendBroadcast(intent);
                     timer.cancel();
                     timer = null;
@@ -103,7 +92,7 @@ public class TimerService extends Service {
         return binder;
     }
 
-    public void Init(ArrayList<Stage> _stages, long _id) {
+    public void Init(ArrayList<Stage> _stages) {
         stages.clear();
         stages = _stages;
         Stage addStage = new Stage();
@@ -111,7 +100,13 @@ public class TimerService extends Service {
         addStage.stageTime = 0;
         stages.add(addStage);
         counter = 0;
-        id = _id;
+    }
+
+    public void stopTimerTask(){
+        if (tTask != null) {
+            tTask.cancel();
+            tTask = null;
+        }
     }
 
     @Override

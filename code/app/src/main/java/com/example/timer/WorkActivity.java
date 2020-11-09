@@ -1,6 +1,8 @@
 package com.example.timer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import android.content.BroadcastReceiver;
@@ -24,6 +26,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.timer.Data.AppDatabase;
+import com.example.timer.Dialogs.AddStageDialog;
+import com.example.timer.Dialogs.RepeatDialog;
 import com.example.timer.Models.Stage;
 import com.example.timer.Models.TrainingStages;
 import com.example.timer.Services.TimerService;
@@ -56,6 +60,7 @@ public class WorkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String size = sp.getString("font", "");
         if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
@@ -71,11 +76,11 @@ public class WorkActivity extends AppCompatActivity {
         id = (long) bundle.get("trainingId");
 
 
-        Init();
+        Init(size);
         getDataFromDb(id);
         getLstData();
         WorkAdapter adapter = new
-                WorkAdapter(this, R.layout.work_list_item, items);
+                WorkAdapter(this, R.layout.work_list_item, items, size);
         allParts.setAdapter(adapter);
 
         intentService = new Intent(this, TimerService.class);
@@ -92,15 +97,7 @@ public class WorkActivity extends AppCompatActivity {
         };
 
         btnStart.setOnClickListener(i -> {
-            if (!isPaused) {
-                startService(intentService.putExtra("serviceId", id));
-                getDataFromDb(id);
-                timerService.Init(trainingLst, id);
-                timerService.schedule();
-            } else {
-                timerService.schedule();
-                isPaused = false;
-            }
+            startTimer();
         });
 
         btnStop.setOnClickListener(i -> {
@@ -119,18 +116,35 @@ public class WorkActivity extends AppCompatActivity {
                 setChecked(position);
 
                 getDataFromDb(id);
-                timerService.Init(trainingLst, id);
+                timerService.Init(trainingLst);
                 timerService.schedule(position);
             }
         });
     }
 
-    public void Init() {
+    public void startTimer(){
+        if (!isPaused) {
+            startService(intentService.putExtra("serviceId", id));
+            getDataFromDb(id);
+            timerService.Init(trainingLst);
+            timerService.schedule();
+        } else {
+            timerService.schedule();
+            isPaused = false;
+        }
+    }
+
+    public void Init(String size) {
         namePart = findViewById(R.id.partName);
         timePart = findViewById(R.id.partTime);
         allParts = findViewById(R.id.allParts);
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.btnStop);
+
+        namePart.setTextSize(Float.parseFloat(size));
+        timePart.setTextSize(Float.parseFloat(size));
+        btnStop.setTextSize(Float.parseFloat(size));
+        btnStart.setTextSize(Float.parseFloat(size));
     }
 
     private void getLstData() {
@@ -140,10 +154,18 @@ public class WorkActivity extends AppCompatActivity {
         for (TrainingStages trainingStage : trainingStages) {
             trainingLst = (ArrayList<Stage>) trainingStage.stages;
             for (Stage stage : trainingStage.stages) {
-                if (!stage.stageName.equals("Сеты")) {
-                    tempItems.add(stage.stageName + ":" + Integer.toString(stage.stageTime));
+                if(trainingStages.get(0).training.locale.equals("en")){
+                    if (!stage.stageName.equals("Sets")) {
+                        tempItems.add(stage.stageName + ":" + Integer.toString(stage.stageTime));
+                    } else {
+                        sets = stage.stageTime;
+                    }
                 } else {
-                    sets = stage.stageTime;
+                    if (!stage.stageName.equals("Сеты")) {
+                        tempItems.add(stage.stageName + ":" + Integer.toString(stage.stageTime));
+                    } else {
+                        sets = stage.stageTime;
+                    }
                 }
             }
             break;
@@ -208,6 +230,12 @@ public class WorkActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+         timerService.stopTimerTask();
+         super.onBackPressed();
+    }
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -218,9 +246,20 @@ public class WorkActivity extends AppCompatActivity {
     private void UpdateUI(Intent intent) {
         if (intent.getExtras() != null) {
             String[] data = (String[]) intent.getExtras().get("countdown");
-            timePart.setText(data[0]);
-            namePart.setText(data[1]);
-            setChecked(Integer.parseInt(data[2]));
+            if(data[2].equals("FINISHED")){
+                timePart.setText(data[0]);
+                namePart.setText(getResources().getString(R.string.finishedTraining));
+                RepeatDialog dialogFragment = new RepeatDialog();
+                FragmentManager manager = getSupportFragmentManager();
+
+                FragmentTransaction transaction = manager.beginTransaction();
+                dialogFragment.show(transaction, "dialog");
+            }
+            else {
+                timePart.setText(data[0]);
+                namePart.setText(data[1]);
+                setChecked(Integer.parseInt(data[2]));
+            }
         }
     }
 
@@ -239,12 +278,14 @@ public class WorkActivity extends AppCompatActivity {
         private LayoutInflater inflater;
         private int layout;
         private ArrayList<String> stages;
+        String size;
 
-        public WorkAdapter(Context context, int resource, ArrayList<String> stages) {
+        public WorkAdapter(Context context, int resource, ArrayList<String> stages, String size) {
             super(context, resource, stages);
             this.stages = stages;
             this.layout = resource;
             this.inflater = LayoutInflater.from(context);
+            this.size = size;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -257,6 +298,7 @@ public class WorkActivity extends AppCompatActivity {
                 viewHolder = (WorkAdapter.ViewHolder) convertView.getTag();
             }
             viewHolder.textNamePart.setText(stages.get(position));
+            viewHolder.textNamePart.setTextSize(Float.parseFloat(size));
             if (allParts.isItemChecked(position)) {
                 viewHolder.layout.setBackgroundColor(getResources().getColor(R.color.colorYellow));
                 notifyDataSetChanged();

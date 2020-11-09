@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.timer.Models.TrainingStages;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar;
 import codes.side.andcolorpicker.model.IntegerHSLColor;
@@ -38,6 +40,11 @@ public class EditActivity extends AppCompatActivity {
 
     HSLColorPickerSeekBar bar;
     EditText inputName;
+    TextView textViewTraining;
+    TextView textColor;
+    Button btnEdit;
+
+    String activityName = "EditActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,9 @@ public class EditActivity extends AppCompatActivity {
         db = App.getInstance().getDatabase();
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String size = sp.getString("font", "");
+
+
         if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
@@ -58,12 +68,18 @@ public class EditActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         long id = (long) bundle.get("trainingId");
         findControls();
+
+        textViewTraining.setTextSize(Float.parseFloat(size));
+        inputName.setTextSize(Float.parseFloat(size));
+        textColor.setTextSize(Float.parseFloat(size));
+        btnEdit.setTextSize(Float.parseFloat(size));
+
         getDataFromDb(id);
 
 
         inputName.setText(training.name);
         bar.setPickedColor(convertToIntegerHSLColor(training.Color));
-        PartsAdapter adapter = new PartsAdapter(this, R.layout.list_stage_item, stages);
+        PartsAdapter adapter = new PartsAdapter(this, R.layout.list_stage_item, stages, size, activityName);
         lst.setAdapter(adapter);
 
         findViewById(R.id.btnEdit).setOnClickListener(i -> {
@@ -81,7 +97,7 @@ public class EditActivity extends AppCompatActivity {
                 finish();
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Напишите название тренировки", Toast.LENGTH_SHORT);
+                        getResources().getString(R.string.toastInputName), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -103,6 +119,9 @@ public class EditActivity extends AppCompatActivity {
         lst = findViewById(R.id.listStages);
         inputName = findViewById(R.id.inputName);
         bar = findViewById(R.id.hueSeekBar);
+        textViewTraining = findViewById(R.id.textViewTraining);
+        textColor = findViewById(R.id.textColor);
+        btnEdit = findViewById(R.id.btnEdit);
     }
 
     private void getDataFromDb(long id) {
@@ -112,6 +131,7 @@ public class EditActivity extends AppCompatActivity {
             training.id = trainingStage.training.id;
             training.name = trainingStage.training.name;
             training.Color = trainingStage.training.Color;
+            training.locale = trainingStage.training.locale;
             break;
         }
     }

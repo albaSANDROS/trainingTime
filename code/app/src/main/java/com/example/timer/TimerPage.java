@@ -31,6 +31,7 @@ public class TimerPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String size = sp.getString("font", "");
         if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
             setTheme(R.style.AppThemeDark);
         }
@@ -46,9 +47,11 @@ public class TimerPage extends AppCompatActivity {
 
         nameTraining = findViewById(R.id.nameTraining);
         lst = findViewById(R.id.listTraining);
+        nameTraining.setTextSize(Float.parseFloat(size));
+
         getDataFromDb(id);
         TimerPageAdapter adapter = new
-                TimerPageAdapter(this, R.layout.work_list_item, trainingLst);
+                TimerPageAdapter(this, R.layout.work_list_item, trainingLst, size);
         lst.setAdapter(adapter);
     }
 

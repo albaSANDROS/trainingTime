@@ -1,6 +1,7 @@
 package com.example.timer.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,14 @@ public class TimerPageAdapter extends ArrayAdapter<String> {
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<String> stages;
+    String size;
 
-    public TimerPageAdapter(Context context, int resource, ArrayList<String> stages) {
+    public TimerPageAdapter(Context context, int resource, ArrayList<String> stages, String size) {
         super(context, resource, stages);
         this.stages = stages;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
+        this.size = size;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,6 +38,7 @@ public class TimerPageAdapter extends ArrayAdapter<String> {
             viewHolder = (TimerPageAdapter.ViewHolder) convertView.getTag();
         }
         viewHolder.textNamePart.setText(stages.get(position));
+        viewHolder.textNamePart.setTextSize(Float.parseFloat(size));
         return convertView;
     }
 

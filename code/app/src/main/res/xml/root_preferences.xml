@@ -3,11 +3,11 @@
     android:background="?attr/backgroundColor"
     android:layout_marginTop="10dp">
     <PreferenceCategory
+        app:key="catLang"
         android:title="@string/language_header"
-        android:layout="@layout/pref_title"
-        >
+        android:layout="@layout/pref_title">
         <ListPreference
-            app:defaultValue=""
+            app:defaultValue="false"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
             app:key="language"

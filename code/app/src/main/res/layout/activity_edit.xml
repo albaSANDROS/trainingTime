@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Тренировка"
+            android:text="@string/labelTraining"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="?attr/colorControlNormal" />
@@ -44,7 +44,7 @@
             android:id="@+id/inputName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Название тренировки"
+            android:hint="@string/hintNameTraining"
             android:textAllCaps="false"
             android:textColor="?attr/colorControlNormal"
             android:textColorHighlight="?attr/colorControlNormal"
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Цвет"
+            android:text="@string/labelColor"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="?attr/colorControlNormal" />
@@ -93,7 +93,7 @@
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="?attr/colorButtonNormal"
-            android:text="Изменить"
+            android:text="@string/btnChange"
             android:textColor="?attr/titleTextColor"
             tools:ignore="MissingConstraints" />
 

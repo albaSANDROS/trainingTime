@@ -2,6 +2,7 @@ package com.example.timer.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,14 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
     private LayoutInflater inflater;
     private int layout;
     private List<Training> trainingList;
+    String size;
 
-    public TrainingAdapter(Context context, int resource, List<Training> trainings) {
+    public TrainingAdapter(Context context, int resource, List<Training> trainings, String size) {
         super(context, resource, trainings);
         this.trainingList = trainings;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
+        this.size = size;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -42,6 +45,9 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
         }
         Training training = trainingList.get(position);
         viewHolder.nameView.setText(training.name);
+
+        viewHolder.nameView.setTextSize(Float.parseFloat(size));
+
         viewHolder.idView.setText((Long.toString(training.id)));
         viewHolder.layout.setBackgroundColor(training.Color);
 

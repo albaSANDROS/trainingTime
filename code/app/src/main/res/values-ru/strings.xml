@@ -1,17 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">trainingTime</string>
-
-
-    <!-- Preference Titles -->
     <string name="language_header">Язык</string>
-    <string name="font">Шрифт</string>
-    <string name="theme">Тема</string>
-    <!-- Messages Preferences -->
-
     <string name="language_title">Выберите язык</string>
+    <string name="font">Шрифт</string>
     <string name="font_title">Выберите размер шрифта</string>
+    <string name="theme">Тема</string>
     <string name="theme_title">Выберите тему</string>
-
     <string name="btnDeleteAll">Удалить всё</string>
     <string name="addTrainingButton">Добавить</string>
     <string name="labelTraining">Тренировка</string>
@@ -45,4 +40,5 @@
     <string name="finishedTraining">Тренировка закончена</string>
     <string name="repeatTraining">Хотите перезапустить тренировку?</string>
     <string name="yes">Да</string>
+
 </resources>

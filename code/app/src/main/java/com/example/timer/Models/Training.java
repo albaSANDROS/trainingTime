@@ -10,4 +10,5 @@ public class Training {
 
     public String name;
     public int Color;
+    public String locale;
 }
