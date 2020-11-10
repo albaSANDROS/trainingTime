@@ -48,8 +48,12 @@
 «trainingTime» предложит пользователю интуитивный интерфейс: после установки данного таймера пользователю будет необходимо нажать только одну кнопку, чтобы начать интервальную тренировку. Приложение будет располагаться локально и соответственно, не требует повышенной степени безопасности. Для целостности работы приложения необходима защита базы данных от несанкционированных действий, т.к. удаление информации из базы данных приведет к потере информации о пользователе. 
 Приложение будет работать только на мобильных телефонах с операционной системой Android. Минимальная версия будет дополнена позже. 
 
-*** mockups for «trainingTime»***
+***mockups for «trainingTime»***
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/1.jpg?raw=true)
+
+
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/2.jpg?raw=true)
+
+
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/3.jpg?raw=true)
