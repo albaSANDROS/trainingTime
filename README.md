@@ -61,3 +61,9 @@
 ***UML for «trainingTime»***
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml.jpg?raw=true)
+
+
+***UML for «trainingTime» (parted)***
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml1.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml2.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml3.jpg?raw=true)
