@@ -57,3 +57,7 @@
 
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/3.jpg?raw=true)
+
+***UML for «trainingTime»***
+
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml.jpg?raw=true)
