@@ -1,7 +1,7 @@
 # trainingTime
  © programm for TRITPO BSUIR, 850503, ALEX BASKO
 
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/main.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/main.jpg?raw=true)
 
 ***1.Введение***
 
@@ -50,20 +50,20 @@
 
 ***mockups for «trainingTime»***
 
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/1.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/1.jpg?raw=true)
 
 
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/2.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/2.jpg?raw=true)
 
 
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/3.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/3.jpg?raw=true)
 
 ***UML for «trainingTime»***
 
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml.jpg?raw=true)
+![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml.jpg?raw=true)
 
 
 ***UML for «trainingTime» (parted)***
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml1.jpg?raw=true)
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml2.jpg?raw=true)
-![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/logos/uml3.jpg?raw=true)
+![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml1.jpg?raw=true)
+![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml2.jpg?raw=true)
+![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml3.jpg?raw=true)
