@@ -48,6 +48,7 @@
 «trainingTime» предложит пользователю интуитивный интерфейс: после установки данного таймера пользователю будет необходимо нажать только одну кнопку, чтобы начать интервальную тренировку. Приложение будет располагаться локально и соответственно, не требует повышенной степени безопасности. Для целостности работы приложения необходима защита базы данных от несанкционированных действий, т.к. удаление информации из базы данных приведет к потере информации о пользователе. 
 Приложение будет работать только на мобильных телефонах с операционной системой Android. Минимальная версия будет дополнена позже. 
 
+***Мокапы к приложению «trainingTime»***
 ***mockups for «trainingTime»***
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/1.jpg?raw=true)
@@ -58,12 +59,36 @@
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/3.jpg?raw=true)
 
+***UML-диаграмма к приложению «trainingTime»***
 ***UML for «trainingTime»***
 
 ![alt text](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml.jpg?raw=true)
 
 
+***Подробная UML-диаграмма к приложению trainingTime***
 ***UML for «trainingTime» (parted)***
 ![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml1.jpg?raw=true)
 ![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml2.jpg?raw=true)
 ![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml3.jpg?raw=true)
+
+
+**Скриншоты из приложения с пояснениями к ним**
+
+
+*Темная тема в приложенияя*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work1.jpg?raw=true)
+
+*Светлая тема в приложении*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work2.jpg?raw=true)
+
+*Процесс создания индивидуальной тренировки*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work3.jpg?raw=true)
+
+*Экран перед началом выбранной тренировки*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work4.jpg?raw=true)
+
+*Процесс выполнения тренировки*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work5.jpg?raw=true)
+
+*Завершение тренироки*
+![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work6.jpg?raw=true)
