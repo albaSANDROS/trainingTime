@@ -40,18 +40,21 @@ public class SettingsActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         String size = sp.getString("font", "");
         String lang = sp.getString("language", "");
-        Configuration configuration = new Configuration();
-        setLocale(lang);
-        if (sp.getString("theme", "Тёмная").equals("Тёмная"))
-        {
+        String theme = sp.getString("theme",  "");
+        if(size.equals("") || size.equals("false")) size = "17";
+        if(lang.equals("") || lang.equals("false")) lang = "ru";
+        if (theme.equals("") || theme.equals("false")) {
+            setTheme(R.style.AppThemeDark);
+        } else if(theme.equals("Тёмная") || theme.equals("Dark")){
             setTheme(R.style.AppThemeDark);
         }
-        if (sp.getString("theme", "Светлая").equals("Светлая"))
-        {
+        else {
             setTheme(R.style.AppThemeLight);
         }
-        setContentView(R.layout.settings_activity);
 
+        setLocale(lang);
+        setContentView(R.layout.settings_activity);
+        Configuration configuration = new Configuration();
         btnDeleteAll = findViewById(R.id.btnDeleteAll);
         bar = findViewById(R.id.toolbar);
 

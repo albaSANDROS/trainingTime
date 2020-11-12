@@ -54,12 +54,18 @@ public class CreateActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         String size = sp.getString("font", "");
         String lang = sp.getString("language", "");
-        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+        String theme = sp.getString("theme",  "");
+        if(size.equals("") || size.equals("false")) size = "17";
+        if(lang.equals("") || lang.equals("false")) lang = "ru";
+        if (theme.equals("") || theme.equals("false")) {
+            setTheme(R.style.AppThemeDark);
+        } else if(theme.equals("Тёмная") || theme.equals("Dark")){
             setTheme(R.style.AppThemeDark);
         }
-        if (sp.getString("theme", "Светлая").equals("Светлая")) {
+        else {
             setTheme(R.style.AppThemeLight);
         }
+
         setContentView(R.layout.activity_create);
         findControls();
         textViewTraining.setTextSize(Float.parseFloat(size));
@@ -80,10 +86,11 @@ public class CreateActivity extends AppCompatActivity {
             dialogFragment.show(transaction, "dialog");
         });
 
+        String finalLang = lang;
         findViewById(R.id.btnSave).setOnClickListener(i -> {
             if (!inputName.getText().toString().equals("") && stages.size() != 0) {
                 training.name = inputName.getText().toString();
-                training.locale = lang;
+                training.locale = finalLang;
                 IntegerHSLColor hslColor = bar.getPickedColor();
                 training.Color = Color.HSVToColor(new float[]{hslColor.getFloatH(), hslColor.getFloatL()
                         , hslColor.getFloatS()});

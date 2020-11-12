@@ -38,6 +38,7 @@ public class AddStageDialog extends AppCompatDialogFragment {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String size = sp.getString("font", "");
+        if(size.equals("") || size.equals("false")) size = "17";
 
         time = view.findViewById(R.id.inputPartTime);
         spinner = view.findViewById(R.id.spnNameStage);

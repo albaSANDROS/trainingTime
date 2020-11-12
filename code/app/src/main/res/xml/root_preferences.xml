@@ -7,7 +7,7 @@
         android:title="@string/language_header"
         android:layout="@layout/pref_title">
         <ListPreference
-            app:defaultValue="false"
+            app:defaultValue="ru"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
             app:key="language"
@@ -19,7 +19,7 @@
     <PreferenceCategory app:title="@string/font"
         android:layout="@layout/pref_title">
         <ListPreference
-            android:defaultValue="false"
+            android:defaultValue="17"
             app:entries="@array/size_entries"
             app:entryValues="@array/size_values"
             app:key="font"
@@ -31,7 +31,7 @@
     <PreferenceCategory app:title="@string/theme"
         android:layout="@layout/pref_title">
         <ListPreference
-            android:defaultValue="false"
+            android:defaultValue=""
             app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
             app:key="theme"

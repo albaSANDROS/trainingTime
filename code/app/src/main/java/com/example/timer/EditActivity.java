@@ -53,14 +53,17 @@ public class EditActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         String size = sp.getString("font", "");
-
-
-        if (sp.getString("theme", "Тёмная").equals("Тёмная")) {
+        String theme = sp.getString("theme",  "");
+        if(size.equals("") || size.equals("false")) size = "17";
+        if (theme.equals("") || theme.equals("false")) {
+            setTheme(R.style.AppThemeDark);
+        } else if(theme.equals("Тёмная") || theme.equals("Dark")){
             setTheme(R.style.AppThemeDark);
         }
-        if (sp.getString("theme", "Светлая").equals("Светлая")) {
+        else {
             setTheme(R.style.AppThemeLight);
         }
+
         setContentView(R.layout.activity_edit);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         db = App.getInstance().getDatabase();

@@ -31,6 +31,7 @@ public class DeleteStageDialog extends AppCompatDialogFragment {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String size = sp.getString("font", "");
+        if(size.equals("") || size.equals("false")) size = "17";
         textView = view.findViewById(R.id.textViewDelete);
         btnDialogOk = view.findViewById(R.id.btnDialogOk);
         btnDialogCancel = view.findViewById(R.id.btnDialogCancel);
