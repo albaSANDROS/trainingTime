@@ -75,20 +75,22 @@
 **Скриншоты из приложения с пояснениями к ним**
 
 
-*Темная тема в приложенияя*
+***Темная тема в приложенияя***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work1.jpg?raw=true)
 
-*Светлая тема в приложении*
+***Светлая тема в приложении***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work2.jpg?raw=true)
 
-*Процесс создания индивидуальной тренировки*
+***Процесс создания индивидуальной тренировки***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work3.jpg?raw=true)
 
-*Экран перед началом выбранной тренировки*
+***Экран перед началом выбранной тренировки***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work4.jpg?raw=true)
 
-*Процесс выполнения тренировки*
+***Процесс выполнения тренировки***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work5.jpg?raw=true)
 
-*Завершение тренироки*
+***Завершение тренироки***
 ![work](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/work6.jpg?raw=true)
+
+
