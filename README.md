@@ -71,6 +71,9 @@
 ![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml2.jpg?raw=true)
 ![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/uml3.jpg?raw=true)
 
+***Диаграмма развертываемости к приложению trainingTime***
+![UML](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/diagramUML.png?raw=true)
+
 
 **Скриншоты из приложения с пояснениями к ним**
 
