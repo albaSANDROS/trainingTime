@@ -160,10 +160,12 @@
 После перезапуска приложение должно отобразиться с учетом настроек, указанных ранее.
 
 Проверка всех тест-кейсов осуществляется за счет операции сравнения, которая производится с «пустыми» полями. В случае отсутствия каких-либо параметров используются либо стандартные значения, либо вывод соответствующей ошибки. 
- 
+
+![tests](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/test-cases_for_equals.jpg?raw=true)
+
 Проверка метода «equals» производится предоставленным ниже тест-кейсом.
 
-
+![tests](https://github.com/albaSANDROS/trainingTime/blob/master/pictures/euals_test.jpg?raw=true)
 
 ***Мокапы к приложению «trainingTime»***
 ***mockups for «trainingTime»***
